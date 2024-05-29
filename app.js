@@ -148,7 +148,7 @@ async function scrap(page, productId) {
           const productExcelDataObject = {
                productId: productId,
                loc: productNewUrl,
-               changefreq: 'monthly',
+               changefreq: 'weekly',
                priority: 0.8,
                imageUrl: imageUrl
           };
