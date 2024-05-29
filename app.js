@@ -130,11 +130,16 @@ async function scrap(page, productId) {
           const html = await page.content();
           const $ = await cheerio.load(html);
 
+          let imageUrl = ''
+          const imageElements = await page.$x('/html/body/div[2]/div/div/div[2]/div[1]/div[1]/div/div[2]/div/div[1]/div/div/img');
+          if (imageElements.length) {
+               const src = (await imageElements[0].getProperty('src'))?.trim()
+               imageUrl = 'https://vardast.com' + src;
+          }
 
-
-          const imageUrl = $('.swiper-zoom-container > img:first').length ?
-               'https://vardast.com' + $('.swiper-zoom-container > img:first').attr('src')
-               : '';
+          // const imageUrl = $('.swiper-zoom-container > img:first').length ?
+          //      'https://vardast.com' + $('.swiper-zoom-container > img:first').attr('src')
+          //      : '';
 
           const productNewUrl = await page.url()
 
@@ -174,7 +179,7 @@ async function main() {
                const randomProxy = getRandomElement(proxyList);
 
                // Lunch Browser
-               await delay(Math.random() * 4000);
+               await delay(Math.random() * 5000);
                browser = await getBrowser(randomProxy, true, false);
                page = await browser.newPage();
                await page.setViewport({
@@ -209,7 +214,6 @@ async function main() {
      finally {
           // Close page and browser
           console.log("End");
-          
           if(page) await page.close();
           if(browser) await browser.close();
      }
