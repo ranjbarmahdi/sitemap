@@ -126,12 +126,13 @@ async function scrap(page, productId) {
           } catch (error) {
                console.log("******** Error : not image ********");
           }
+
           const html = await page.content();
           const $ = await cheerio.load(html);
 
 
 
-          const imageUrl = $('.swiper-zoom-container > img:first').length ?
+          const imageUrl = $('.swiper-zoom-container > img').length ?
                'https://vardast.com' + $('.swiper-zoom-container > img:first').attr('src')
                : '';
 
