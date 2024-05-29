@@ -112,7 +112,7 @@ async function scrap(page, productId) {
           console.log(`======================== Start scraping : \n${productURL}\n`);
           await page.goto(productURL, { timeout: 180000 });
 
-          await delay(Math.random() * ((11 - 8 + 1 ) + 8)*1000);
+          await delay(Math.random() * 10000);
 
           
           try {
