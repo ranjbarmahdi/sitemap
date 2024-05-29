@@ -1,11 +1,5 @@
-const { getBrowser, getRandomElement, delay, checkMemoryCpu, downloadImages } = require('./utils')
-const omitEmpty = require('omit-empty');
-const { v4: uuidv4 } = require("uuid");
-const cheerio = require("cheerio");
+const { getBrowser, getRandomElement, delay, checkMemoryCpu } = require('./utils')
 const db = require('./config.js');
-const path = require("path");
-const fs = require("fs");
-const url = require('url');
 
 
 
@@ -118,7 +112,7 @@ async function scrap(page, productId) {
           console.log(`======================== Start scraping : \n${productURL}\n`);
           await page.goto(productURL, { timeout: 180000 });
 
-          await delay(Math.random(10000));
+          await delay(Math.random(2000));
 
           
           try {
@@ -127,8 +121,6 @@ async function scrap(page, productId) {
                // Do Noth Thing     
           }
           
-          const html = await page.content();
-          const $ = await cheerio.load(html);
 
           let imageUrl = '';
           const imageElements = await page.$x('/html/body/div[2]/div/div/div[2]/div[1]/div[1]/div/div[2]/div/div[1]/div/div/img');
@@ -137,10 +129,6 @@ async function scrap(page, productId) {
                const src = await srcProperty?.jsonValue();
                imageUrl = src?.trim();
           }
-
-          // const imageUrl = $('.swiper-zoom-container > img:first').length ?
-          //      'https://vardast.com' + $('.swiper-zoom-container > img:first').attr('src')
-          //      : '';
 
           const productNewUrl = await page.url()
 
@@ -180,7 +168,7 @@ async function main() {
                const randomProxy = getRandomElement(proxyList);
 
                // Lunch Browser
-               await delay(Math.random() * 5000);
+               await delay(Math.random() * 10000);
                browser = await getBrowser(randomProxy, true, false);
                page = await browser.newPage();
                await page.setViewport({
