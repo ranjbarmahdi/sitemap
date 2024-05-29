@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  node-app:
+    user: root
+    restart: always
+    build:
+      context: .
+    ports:
+      - "4010-4090:4008"
+    networks:
+      - custom_network
+
