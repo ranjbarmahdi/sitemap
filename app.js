@@ -134,7 +134,7 @@ async function scrap(page, productId) {
           const imageElements = await page.$x('/html/body/div[2]/div/div/div[2]/div[1]/div[1]/div/div[2]/div/div[1]/div/div/img');
           if (imageElements.length) {
                const src = (await imageElements[0].getProperty('src'))?.toString()?.trim();
-               imageUrl = 'https://vardast.com' + src;
+               imageUrl = src;
           }
 
           // const imageUrl = $('.swiper-zoom-container > img:first').length ?
