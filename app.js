@@ -116,7 +116,7 @@ async function scrap(page, productId) {
 
           
           try {
-               await page.waitForSelector('.swiper-zoom-container > img', { timeout: 10000 });
+               await page.waitForSelector('.swiper-zoom-container > img', { timeout: 20000 });
           } catch (error) {
                // Do Noth Thing     
           }
