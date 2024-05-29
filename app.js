@@ -124,17 +124,18 @@ async function scrap(page, productId) {
           try {
                await page.waitForSelector('.swiper-zoom-container > img', { timeout: 10000 });
           } catch (error) {
-               console.log("******** Error : not image ********");
+               // Do Noth Thing     
           }
           
           const html = await page.content();
           const $ = await cheerio.load(html);
 
-          let imageUrl = ''
+          let imageUrl = '';
           const imageElements = await page.$x('/html/body/div[2]/div/div/div[2]/div[1]/div[1]/div/div[2]/div/div[1]/div/div/img');
           if (imageElements.length) {
-               const src = (await imageElements[0].getProperty('src'))?.jsonValue()?.toString()?.trim();
-               imageUrl = src;
+               const srcProperty = await imageElements[0].getProperty('src');
+               const src = await srcProperty?.jsonValue();
+               imageUrl = src?.trim();
           }
 
           // const imageUrl = $('.swiper-zoom-container > img:first').length ?
