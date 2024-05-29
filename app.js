@@ -118,7 +118,7 @@ async function scrap(page, productId) {
           console.log(`======================== Start scraping : \n${productURL}\n`);
           await page.goto(productURL, { timeout: 180000 });
 
-          await delay(7000);
+          await delay(Math.random() * (11 - 7 + 1) + 7);
 
           const html = await page.content();
           const $ = await cheerio.load(html);
@@ -201,7 +201,7 @@ async function main() {
           console.log("End");
           if(page) await page.close();
           if(browser) await browser.close();
-          await delay(Math.random()*3000);
+          await delay(1000);
      }
 }
 
