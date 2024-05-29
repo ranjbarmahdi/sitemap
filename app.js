@@ -122,17 +122,17 @@ async function scrap(page, productId) {
 
           
           try {
-               await page.waitForSelector('.swiper-zoom-container > img:first', { timeout: 10000 });
+               await page.waitForSelector('.swiper-zoom-container > img', { timeout: 10000 });
           } catch (error) {
                console.log("******** Error : not image ********");
           }
-
+          
           const html = await page.content();
           const $ = await cheerio.load(html);
 
 
 
-          const imageUrl = $('.swiper-zoom-container > img').length ?
+          const imageUrl = $('.swiper-zoom-container > img:first').length ?
                'https://vardast.com' + $('.swiper-zoom-container > img:first').attr('src')
                : '';
 
