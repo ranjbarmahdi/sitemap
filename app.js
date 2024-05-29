@@ -120,8 +120,11 @@ async function scrap(page, productId) {
 
           await delay(Math.random(10000));
 
+          await page.waitForSelector('#my-element', { timeout: 10000 });
           const html = await page.content();
           const $ = await cheerio.load(html);
+
+
 
           const imageUrl = $('.swiper-zoom-container > img:first').length ?
                'https://vardast.com' + $('.swiper-zoom-container > img:first').attr('src')
