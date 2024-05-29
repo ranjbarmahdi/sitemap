@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  node-s:
+  node-sitemap:
     user: root
     restart: always
     build:
