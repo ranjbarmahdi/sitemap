@@ -178,7 +178,6 @@ async function main() {
                
 
                const productInfo = await scrap(page, productIdRow.id);
-               console.log(productInfo)
                const insertQueryInput = [
                     productInfo.productId,
                     productInfo.loc,
