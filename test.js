@@ -1,11 +1,8 @@
-const { CdpDialog } = require("puppeteer");
-const { v4: uuidv4 } = require("uuid");
 
-const uuids = []
-for(let i = 0; i < 100; i++){
-    const uuid = uuidv4().replace(/-/g, "");
-    uuids.push(uuid);
+const csvFile = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
+const chunkSize = 3;
+for(let i = 0; i < csvFile.length; i += chunkSize){
+    const chunk = csvFile.slice(i, i + chunkSize);
+    console.log(chunk)
 }
-
-console.log(uuids)
