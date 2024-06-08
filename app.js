@@ -108,7 +108,7 @@ async function insertProductIdToVisited(productid) {
 // ============================================ scrapSingleProduct
 async function scrap(page, productId) {
      try {
-          const productURL = `https://vardast.com/brand/${productId}`
+          const productURL = `https://vardast.com/seller/${productId}`
           console.log(`======================== Start scraping : \n${productURL}\n`);
           await page.goto(productURL, { timeout: 180000 });
 
@@ -126,7 +126,7 @@ async function scrap(page, productId) {
           // product
           // const imageElements = await page.$x('/html/body/div[2]/div/div/div[2]/div[1]/div[1]/div/div[2]/div/div[1]/div/div/img');
           
-          //brand
+          //brand and seller
           const imageElements = await page.$x('/html/body/div[2]/div/div/div/div[2]/div[1]/div/div/div[2]/div[1]/div/img') 
           if (imageElements.length) {
                const srcProperty = await imageElements[0].getProperty('src');
@@ -141,7 +141,7 @@ async function scrap(page, productId) {
                productId: productId,
                loc: productNewUrl,
                changefreq: 'weekly',
-               priority: 0.8,
+               priority: 0.6,
                imageUrl: imageUrl
           };
 
