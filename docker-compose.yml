@@ -1,16 +1,16 @@
 version: '3.7'
 
 services:
-  node-sitemap:
-    user: root
-    restart: always
-    build:
-      context: .
-    ports:
-      - "4010-4090:4008"
-    networks:
-      - custom_network
+    node-sitemap:
+        user: root
+        restart: always
+        build:
+            context: .
+        ports:
+            - '7000-7050:4010'
+        networks:
+            - custom_network
 
 networks:
-  custom_network:
-    external: true
+    custom_network:
+        external: true
