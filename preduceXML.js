@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const directoryPath = './sitemaps';
-const outputFilePath = './sitemap.xml';
+const outputFilePath = './sitemap_index.xml';
 
 // Get all .gz files in the directory
 const gzFiles = fs.readdirSync(directoryPath).filter(file => file.endsWith('.gz'));

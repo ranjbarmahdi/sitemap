@@ -10,6 +10,8 @@ const input = './sitemapCsv';
 const output = './sitemaps';
 const csvFileNames = fs.readdirSync(input).filter(file => file.endsWith('csv'));
 
+const black = []
+
 function convertJsonToXml(data){
     const root = create({ version: '1.0', encoding: 'UTF-8' })
     .ele('urlset', {
@@ -18,25 +20,26 @@ function convertJsonToXml(data){
     });
 
     data.forEach(entry => {
+        if(black.includes(entry.product_id)){
+            return;
+        }
         const url = root.ele('url');
         url.ele('loc').txt(entry.loc);
-        url.ele('changefreq').txt(entry.changefreq);
+        // url.ele('changefreq').txt(entry.changefreq);
         url.ele('priority').txt(entry.priority);
-        if (entry.image_url) {
-            const image = url.ele('image:image');
-            const imaageLoc = image.ele('image:loc')
-            imaageLoc.txt(entry.image_url);
-        }
+        // if (entry.image_url) {
+        //     const image = url.ele('image:image');
+        //     const imaageLoc = image.ele('image:loc')
+        //     imaageLoc.txt(entry.image_url);
+        //     const caption = image.ele('image:caption');
+        //     caption.txt('وردست')
+        // }
     });
 
     const xml = root.end({ prettyPrint: true });
     return xml
 }
 
-
-const modifyImageLoc = (url) => {
-    return url.replaceAll('&amp;', '&');
-  };
 
 async function main(chunkSize){
 
@@ -53,28 +56,7 @@ async function main(chunkSize){
             
             // process sitemap chunk
             let xml =  convertJsonToXml(chunk);
-
-            // modify image:loc of xml 
-            // xml2js.parseString(xml, { tagNameProcessors: [xml2js.processors.stripPrefix] }, (err, result) => {
-            //     if (err) {
-            //       throw err;
-            //     }
-              
-            //     result.urlset.url.forEach(url => {
-            //       if (url.image && url.image.image) {
-            //         url.image.image.forEach(image => {
-            //           if (image.loc) {
-            //             image.loc[0] = modifyImageLoc(image.loc[0]);
-            //           }
-            //         });
-            //       }
-            //     });
-              
-            //     const builder = new xml2js.Builder({ rootName: 'urlset', headless: true });
-            //     xml = builder.buildObject(result);
-            //     console.log(xml);
-            // });
-
+            xml = xml.replaceAll('&amp;', '&')
 
             const uuid = uuidv4().replace(/-/g, "");
            
@@ -94,7 +76,7 @@ async function main(chunkSize){
             compressXml(xml, (err, buffer) => {
                 if (err) {
                     console.error('Error compressing XML:', err);
-                    return;
+                    return;``
                 }
 
 
@@ -107,9 +89,9 @@ async function main(chunkSize){
                 });
             });
 
-            break
+            
         }
     }
 }
 
-main(600)
+main(237)
